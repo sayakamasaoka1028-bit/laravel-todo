@@ -5,6 +5,7 @@ namespace App\Http\Controllers; // 名前空間。Laravelではコントロー�
 use Illuminate\Http\Request; // HTTPリクエストを扱うためのクラスを読み込む
 use App\Models\Todo; // Todoモデルを読み込む
 use App\Http\Requests\TodoRequest;
+use App\Models\Category;
 
 // TodoControllerクラスの定義。Controllerを継承しているのでLaravelの便利な機能が使える
 class TodoController extends Controller
@@ -13,8 +14,11 @@ class TodoController extends Controller
 public function index()
 {
     $todos = Todo::all(); // テーブルの全レコードを取得するEloquentメソッド select * from `todos`;
-
-    return view('index', compact('todos')); // Bladeに渡す
+    $categories = Category::all(); // Categoryを全部取得
+    return view('index',[
+    'todos' => $todos,
+    'categories' => $categories // ← ここがポイント
+    ]);
 }
      // 作成
 public function store(TodoRequest $request)

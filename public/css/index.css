@@ -18,35 +18,55 @@
 
 .todo__content {
   margin: 0 auto;
-  padding: 60px 15px;
+  padding: 30px 15px;
   max-width: 1230px;
 }
 
-.create-form {
+ .section__title {
+   margin: 0 auto;
+   width: 70%;
+}
+
+
+
+
+.create-form, .search-form {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
+  margin-bottom: 15px;
   width: 70%;
   text-align: center;
 }
 
-.create-form__item {
-  width: 70%;
+ .create-form__item, .search-form__item {
+ display: flex;  
+ width: 70%;
 }
 
-.create-form__item-input {
+.create-form__item-input, .search-form__item-input {
+  margin-right: 10px;
   padding: 10px;
-  width: 100%;
+  width: 70%;
   height: 40px;
   border: 1px solid #ddd;
   border-radius: 3px;
 }
 
-.create-form__button {
+ .create-form__item-select, .search-form__item-select {
+   padding: 10px;
+   width: 30%;
+   height: 40px;
+   border: 1px solid #ddd;
+   border-radius: 3px;
+   appearance: none;
+ }
+
+.create-form__button, .search-form__button {
   width: 20%;
 }
 
-.create-form__button-submit {
+.create-form__button-submit, .search-form__button-submit {
   padding: 10px;
   width: 100%;
   height: 40px;
@@ -60,7 +80,7 @@
 .todo-table {
   margin: 30px auto;
   width: 70%;
-  text-align: left;
+  text-align: center;
 }
 
 .todo-table__inner {
@@ -77,7 +97,9 @@
   text-align: left;
   font-weight: bold;
 }
-
+ .todo-table__header-span {
+   margin-right: 40%;
+ }
 .todo-table__item:first-of-type {
   padding: 12px;
   width: 90%;
@@ -90,7 +112,7 @@
 }
 
 .update-form__item {
-  width: 80%;
+  width: 40%;
   line-height: 50%;
 }
 
@@ -99,14 +121,23 @@
   outline: none;
   border: none;
 }
-
+ .update-form__item-p {
+     text-align: left;
+     font-size: 13px;
+ }
 .update-form__button {
-  width: 50px;
+  display: flex;   /* 子を横並びにする */
+  gap: 5px;        /* ボタン間の間隔 */
 }
 
+/* 子 */
+.update-form__button button {
+  width: 50px;     /* 横幅 */
+  height: 30px;    /* 高さ */
+}
 .update-form__button-submit {
   padding: 5px;
-  width: 100%;
+  width: auto;
   border: none;
   border-radius: 3px;
   background: #0000ff;
@@ -126,4 +157,48 @@
   background: #ff0000;
   color: #fff;
   cursor: pointer;
+}
+/* 検索フォーム */
+.search-form__item-input {
+  margin-right: 10px;
+  padding: 10px;
+  width: 70%;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.search-form__item-select {
+  padding: 10px;
+  width: 30%;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.search-form__button-submit {
+  padding: 10px 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.category {
+  white-space: nowrap; /* 折り返さない */
+  overflow: hidden;    /* はみ出た部分を隠す */
+  text-overflow: ellipsis; /* はみ出たら「…」で表示 */
+}
+.container {
+  display: flex;
+  width: 100%;      /* 親は画面幅いっぱい */
+  gap: 10px;        /* 子の間隔 */
+}
+
+.todo, .category {
+  flex: 1 1 auto;   /* 子の幅を自動で調整 */
+  min-width: 0;     /* 子が狭くなっても折り返さない */
+  white-space: nowrap; /* 折り返し禁止 */
+  overflow: hidden;    /* はみ出た文字は隠す */
+  text-overflow: ellipsis; /* はみ出したら「…」で省略 */
 }

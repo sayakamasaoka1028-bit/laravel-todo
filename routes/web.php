@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +22,4 @@ Route::delete('/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.
 // 編集フォームを表示
 
 Route::get('/todos/{todo}/edit', [TodoController::class, 'edit'])->name('todos.edit');
+Route::resource('categories', CategoryController::class); // CRUD用のルートをまとめて作成
