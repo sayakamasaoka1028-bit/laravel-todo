@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Category;
 
+use App\Http\Requests\CategoryRequest;
+
 class CategoryController extends Controller
 {
 // 一覧表示
@@ -22,10 +24,11 @@ class CategoryController extends Controller
     }
 
     // データ保存
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
-        return redirect()->route('categories.index');
+        $request->validate(['name' => 'required|max:50']);
+        Category::create($request->only('name')); // DBに追加
+        return redirect('/categories')->with('message', 'カテゴリを作成しました');
     }
 
     // 編集フォーム
@@ -35,7 +38,7 @@ class CategoryController extends Controller
     }
 
     // 更新処理
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
         return redirect()->route('categories.index');

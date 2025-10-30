@@ -109,11 +109,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;      /* 列の間隔 */
+  flex-wrap: nowrap; /* 改行させない */
 }
 
 .update-form__item {
-  width: 40%;
+  width: 30%;
   line-height: 50%;
+  white-space: nowrap;   /* 改行させない */
+  overflow: hidden;      /* はみ出したら切る */
+  text-overflow: ellipsis; /* 末尾に…を付ける */
 }
 
 .update-form__item-input {

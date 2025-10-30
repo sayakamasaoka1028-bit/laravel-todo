@@ -23,7 +23,7 @@ public function index()
      // 作成
 public function store(TodoRequest $request)
 {
-// TodoRequest でバリデーション済み
+// content と category_id を取得して保存
         $todo = $request->only(['content']);
         Todo::create($todo);//sql はEloquentモデルを作って、INSERT文を発行してDBに保存するワンステップ処理　insert into `todos` (`title`, `is_done`, `created_at`, `updated_at`)
 

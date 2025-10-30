@@ -27,8 +27,7 @@
         name="content"
        value="{{ old('content') }}"
       />
-     <select class="create-form__item-select"name="category_id>
-       <option value="">カテゴリ</option>
+      <select class="create-form__item-select" name="category_id">
        @foreach ($categories as $category)
        <option value="{{ $category->id }}">{{ $category->name }}</option>
        @endforeach
