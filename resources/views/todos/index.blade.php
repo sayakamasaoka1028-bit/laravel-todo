@@ -41,13 +41,23 @@
  <div class="section__title">
    <h2>Todo検索</h2>
  </div>
- <form class="search-form"action="{{ route('todos.index') }}" method="GET>
+ <form class="search-form" action="{{ route('todos.index') }}" method="get">
  @csrf <!-- GET でも書いておくと安心 -->
  <div class="search-form__item">
-     <input class="search-form__item-input" type="text" />
-     <select class="search-form__item-select">
-       <option value="">カテゴリ</option>
-     </select>
+<input
+  class="search-form__item-input"
+  type="text"
+  name="keyword"
+  value="{{ request('keyword') }}"
+  placeholder="キーワード検索">
+<select class="search-form__item-select" name="category_id">
+      <option value="">カテゴリ選択</option>
+　　　　　@foreach ($categories as $category)
+        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+          {{ $category->name }}
+        </option>
+      @endforeach
+</select>
    </div>
    <div class="search-form__button">
      <button class="search-form__button-submit" type="submit">検索</button>
@@ -64,7 +74,7 @@
       @foreach ($todos as $todo)
       <tr class="todo-table__row">
         <td class="todo-table__item">
-          <form class="update-form" action="/todos/update" method="post">
+          <form class="update-form" action="{{ route('todos.update', $todo['id']) }}" method="post">
             @method('PATCH') @csrf
               <input
                 class="update-form__item-input"
@@ -72,8 +82,6 @@
                 name="content"
                 value="{{ $todo['content'] }}"
               />
-              <input type="hidden" name="id" value="{{ $todo['id'] }}" />
-            </div>
            <div class="update-form__item">
              <p class="update-form__item-p">Category 1</p>
            </div>
@@ -85,7 +93,7 @@
           </form>
         </td>
         <td class="todo-table__item">
-          <form class="delete-form" action="/todos/delete" method="post">
+          <form class="delete-form" action="{{ route('todos.destroy', $todo['id']) }}" method="post">
             @method('DELETE') @csrf
             <div class="delete-form__button">
               <button class="delete-form__button-submit" type="submit">

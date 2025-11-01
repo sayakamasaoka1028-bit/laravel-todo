@@ -17,7 +17,6 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', [TodoController::class, 'index'])->name('todos.index');
 // URL '/todos' にアクセスがあったら TodoController の post store メソッドを呼び出す
 Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
-Route::put('/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
 Route::delete('/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
 // 編集フォームを表示
 
@@ -25,4 +24,4 @@ Route::get('/todos/{todo}/edit', [TodoController::class, 'edit'])->name('todos.e
 
 //CRUD用のルートをまとめて作成
 Route::resource('categories', CategoryController::class);// カテゴリ追加用のルート
-
+Route::match(['put', 'patch'], '/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');

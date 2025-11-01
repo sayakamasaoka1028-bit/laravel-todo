@@ -11,20 +11,31 @@ use App\Models\Category;
 class TodoController extends Controller
 {
      // 一覧表示
-public function index()
+public function index(Request $request)
 {
-    $todos = Todo::all(); // テーブルの全レコードを取得するEloquentメソッド select * from `todos`;
-    $categories = Category::all(); // Categoryを全部取得
-    return view('index',[
-    'todos' => $todos,
-    'categories' => $categories // ← ここがポイント
-    ]);
+$keyword = $request->input('keyword');
+    $category_id = $request->input('category_id');
+
+    $query = Todo::query();
+
+    if ($keyword) {
+        $query->where('content', 'LIKE', "%{$keyword}%");
+    }
+
+    if ($category_id) {
+        $query->where('category_id', $category_id);
+    }
+
+    $todos = $query->with('category')->get();
+    $categories = Category::all();
+
+    return view('todos.index', compact('todos', 'categories', 'keyword', 'category_id'));
 }
      // 作成
 public function store(TodoRequest $request)
 {
 // content と category_id を取得して保存
-        $todo = $request->only(['content']);
+        $todo = $request->only(['content', 'category_id']);
         Todo::create($todo);//sql はEloquentモデルを作って、INSERT文を発行してDBに保存するワンステップ処理　insert into `todos` (`title`, `is_done`, `created_at`, `updated_at`)
 
 
