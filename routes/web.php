@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TodoController; // TodoControllerクラスを使えるようにする宣言
 use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +25,5 @@ Route::get('/todos/{todo}/edit', [TodoController::class, 'edit'])->name('todos.e
 //CRUD用のルートをまとめて作成
 Route::resource('categories', CategoryController::class);// カテゴリ追加用のルート
 Route::match(['put', 'patch'], '/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
+// {category} はカテゴリIDとして受け取り、indexByCategory メソッドを呼ぶ
+Route::get('/todos/category/{category}', [TodoController::class, 'indexByCategory']);

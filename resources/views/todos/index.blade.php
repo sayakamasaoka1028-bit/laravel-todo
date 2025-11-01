@@ -74,16 +74,18 @@
       @foreach ($todos as $todo)
       <tr class="todo-table__row">
         <td class="todo-table__item">
-          <form class="update-form" action="{{ route('todos.update', $todo['id']) }}" method="post">
+          <form class="update-form" action="{{ route('todos.update', $todo->id) }}" method="post">
             @method('PATCH') @csrf
               <input
                 class="update-form__item-input"
                 type="text"
                 name="content"
-                value="{{ $todo['content'] }}"
+                value="{{ $todo->content }}"
               />
            <div class="update-form__item">
-             <p class="update-form__item-p">Category 1</p>
+             <p class="update-form__item-p">
+             {{ $todo->category->name ?? 'カテゴリーなし' }}
+            </p>
            </div>
             <div class="update-form__button">
               <button class="update-form__button-submit" type="submit">
@@ -93,7 +95,7 @@
           </form>
         </td>
         <td class="todo-table__item">
-          <form class="delete-form" action="{{ route('todos.destroy', $todo['id']) }}" method="post">
+          <form class="delete-form" action="{{ route('todos.destroy', $todo->id) }}" method="post">
             @method('DELETE') @csrf
             <div class="delete-form__button">
               <button class="delete-form__button-submit" type="submit">
